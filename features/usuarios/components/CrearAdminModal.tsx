@@ -56,11 +56,11 @@ export function CrearAdminModal({
       permissions: [{ label: "Super Admin", value: "SuperAdmin" }],
     },
     {
-      label: "Módulo de Farmacias",
+      label: "Módulo de Negocios",
       permissions: [
-        { label: "Ver Farmacias", value: "ReadPharmacy" },
-        { label: "Crear Farmacias", value: "CreatePharmacy" },
-        { label: "Eliminar Farmacias", value: "DeletePharmacy" },
+        { label: "Ver Negocios", value: "ReadNegocios" },
+        { label: "Crear Negocios", value: "CreateNegocios" },
+        { label: "Eliminar Negocios", value: "DeleteNegocios" },
       ],
     },
     {

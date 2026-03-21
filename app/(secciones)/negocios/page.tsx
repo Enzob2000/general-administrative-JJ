@@ -49,12 +49,12 @@ export default function NegociosPage() {
       await api.delete(`/admin/Pharmacy/deletepharmacy/${id}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["farmacias"] });
+      queryClient.invalidateQueries({ queryKey: ["negocios"] });
       setNotification({
         show: true,
         type: "success",
-        title: "Farmacia Eliminada",
-        message: "La farmacia ha sido eliminada correctamente.",
+        title: "Negocio Eliminado",
+        message: "El negocio ha sido eliminado correctamente.",
       });
       setDeleteDialog({ show: false, id: null, name: "" });
     },
@@ -64,7 +64,7 @@ export default function NegociosPage() {
         type: "error",
         title: "Error",
         message:
-          err.response?.data?.message || "No se pudo eliminar la farmacia.",
+          err.response?.data?.message || "No se pudo eliminar el negocio.",
       });
     },
   });
@@ -157,7 +157,7 @@ export default function NegociosPage() {
 
         <DeleteConfirmDialog
           isOpen={deleteDialog.show}
-          title="Eliminar Farmacia"
+          title="Eliminar Negocio"
           itemName={deleteDialog.name}
           onClose={() => setDeleteDialog({ show: false, id: null, name: "" })}
           onConfirm={() => deleteDialog.id && deletePharmacy(deleteDialog.id)}

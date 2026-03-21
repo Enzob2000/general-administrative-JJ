@@ -1,5 +1,5 @@
 "use client";
-import LoginForm from "@/components/ui/loginForm";
+import LoginForm from "@/components/ui/LoginForm";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { FaCircleNotch } from "react-icons/fa";

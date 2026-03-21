@@ -25,7 +25,7 @@ export const columns = [
     key: "name_group",
   },
   {
-    header: "Farmacias",
+    header: "Negocios",
     key: "id_group",
     render: (item: Grupos) =>
       React.createElement(ApiCounter, {
