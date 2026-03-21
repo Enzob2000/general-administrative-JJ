@@ -399,7 +399,7 @@ export function useCrearNegocioForm(isOpen: boolean, onClose: () => void) {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["farmacias"] });
+      queryClient.invalidateQueries({ queryKey: ["negocios"] });
       setNotification({
         show: true,
         type: "success",
