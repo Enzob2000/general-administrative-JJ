@@ -45,8 +45,8 @@ export default function NegociosPage() {
   // console.log(JSON.stringify(data, null, 2));
 
   const { mutate: deletePharmacy, isPending: isDeleting } = useMutation({
-    mutationFn: async (id: string) => {
-      await api.delete(`/admin/Pharmacy/deletepharmacy/${id}`);
+    mutationFn: async (id_pharmacy: string) => {
+      await api.delete(`/admin/Pharmacy/deletepharmacy/${id_pharmacy}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["negocios"] });

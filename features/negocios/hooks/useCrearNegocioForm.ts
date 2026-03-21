@@ -512,23 +512,10 @@ export function useCrearNegocioForm(isOpen: boolean, onClose: () => void) {
       }
     }
 
-    // if (step === 7) {
-    //   // 1. Verificar que no haya tokens vacíos
-    //   if (tokens.some((t) => !t.token.trim())) {
-    //     missingFields.push("Tokens de Entidad");
-    //   }
-
-    //   // 2. Verificar que todos los tokens Smart estén en estado 'success'
-    //   const smartTokensIncomplete = tokens.some(
-    //     (t, index) => t.entidad === "SMART" && tokenStatus[index] !== "success",
-    //   );
-
-    //   if (smartTokensIncomplete) {
-    //     missingFields.push(
-    //       "Verificar todos los tokens Smart con la factura de prueba",
-    //     );
-    //   }
-    // }
+    if (step === 7) {
+      // Los tokens ahora son opcionales según requerimiento.
+      // No agregamos nada a missingFields para permitir continuar/finalizar.
+    }
 
     // --- PROCESAMIENTO DE ERRORES ---
     if (missingFields.length > 0) {
@@ -543,7 +530,7 @@ export function useCrearNegocioForm(isOpen: boolean, onClose: () => void) {
     }
 
     // --- CAMBIO DE PASO O ENVÍO FINAL ---
-    if (step < 6) {
+    if (step < 7) {
       setStep(step + 1);
     } else {
       mutate();

@@ -539,7 +539,120 @@ export function CrearNegocioModal({
             </div>
           )}
 
-          {/* PASO 7: TOKENS DINÁMICOS */}
+          {step === 7 && (
+            <div className="max-w-4xl space-y-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-blue-600 flex items-center gap-2">
+                    <RiShieldKeyholeLine className="text-2xl" /> Paso 7:
+                    Configurar Tokens
+                  </h3>
+                  <p className="text-[11px] text-gray-400 font-bold uppercase italic tracking-wider">
+                    ESTE PASO ES OPCIONAL (PUEDE FINALIZAR SIN LLENAR)
+                  </p>
+                </div>
+
+                {tokens.length < 2 && (
+                  <button
+                    onClick={addTokenField}
+                    className="flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all shadow-md active:scale-95"
+                  >
+                    <RiAddLine size={18} /> Agregar Entidad
+                  </button>
+                )}
+              </div>
+
+              <div className="space-y-4">
+                {tokens.map((t, index) => (
+                  <div
+                    key={index}
+                    className="relative flex flex-col md:flex-row gap-6 p-6 bg-slate-50/50 rounded-[2rem] border border-slate-100 items-start"
+                  >
+                    <div className="w-full md:w-[35%]">
+                      <FormSelect
+                        label="Entidad / Banco"
+                        value={t.entidad}
+                        onChange={(v) => updateTokenField(index, "entidad", v)}
+                        options={[
+                          { label: "SMART (Facturación)", value: "SMART" },
+                          { label: "R4 (Banco Plaza)", value: "R4" },
+                        ].filter((opt) => {
+                          const isAlreadySelected = tokens.some(
+                            (tk, idx) =>
+                              tk.entidad === opt.value && idx !== index,
+                          );
+                          return !isAlreadySelected || opt.value === t.entidad;
+                        })}
+                      />
+                    </div>
+
+                    {/* 2. Input de Token y Botón de Validación */}
+                    <div className="flex-[2] w-full flex flex-col md:flex-row items-start gap-2">
+                      <div className="w-full md:flex-1">
+                        <FormInput
+                          label="Token de Seguridad"
+                          placeholder="Token provisto por el banco"
+                          type="password"
+                          value={t.token}
+                          onChange={(v) => updateTokenField(index, "token", v)}
+                        />
+                      </div>
+                      {/* Botón de Verificación (Baja al nivel de la caja del input) */}
+                      {(t.entidad === "SMART" || t.entidad === "R4") && (
+                        <div className="pt-[30px]">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              t.entidad === "SMART"
+                                ? handleVerifyToken(index)
+                                : handleVerifyR4(index)
+                            }
+                            disabled={
+                              tokenStatus[index] === "loading" ||
+                              tokenStatus[index] === "success"
+                            }
+                            className={`h-[58px] px-6 rounded-2xl font-bold transition-all border-2 flex items-center justify-center min-w-[160px] ${
+                              tokenStatus[index] === "success"
+                                ? "bg-green-100 text-green-600 border-green-200"
+                                : tokenStatus[index] === "error"
+                                  ? "bg-red-50 text-red-600 border-red-200"
+                                  : "bg-blue-600 text-white border-transparent hover:bg-blue-700 disabled:opacity-70"
+                            }`}
+                          >
+                            {tokenStatus[index] === "loading" ? (
+                              <span className="flex items-center gap-2">
+                                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                ...
+                              </span>
+                            ) : tokenStatus[index] === "success" ? (
+                              "✓ Listo"
+                            ) : t.entidad === "SMART" ? (
+                              "Validar Token Smart"
+                            ) : (
+                              "Validar Token R4"
+                            )}
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* 3. Botón de Eliminar (También alineado) */}
+                    {tokens.length > 1 && (
+                      <div className="pt-[30px]">
+                        <button
+                          type="button"
+                          onClick={() => removeTokenField(index)}
+                          className="p-4 bg-red-100 text-red-600 rounded-2xl hover:bg-red-200 transition-colors flex items-center justify-center h-[58px]"
+                        >
+                          <RiDeleteBin6Line size={20} />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </MultiStepModal>
 
