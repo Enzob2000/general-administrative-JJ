@@ -14,7 +14,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # ARGs requeridos para el empaquetado del Frontend (Build-time)
-ENV NEXT_PUBLIC_API_URL="https://medizins.com"
+ENV NEXT_PUBLIC_API_URL="https://negocios.medizins.com"
 ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN pnpm run build
